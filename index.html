@@ -12,27 +12,24 @@
         li {
             cursor: pointer; 
         }
-        .open > ul {
-            display: block; 
-        }
         ul ul {
             display: none; 
         }
     </style>
 </head>
 <body>
-    <ul>
+    <ul id="menu">
         <li>Книги
-            <ul>
+            <ul hidden>
                 <li>Зарубежные
-                    <ul>
+                    <ul hidden>
                         <li>Детективы</li>
                         <li>Научная фантастика</li>
                         <li>Исторические</li>
                     </ul>
                 </li>
                 <li>Отечественные
-                    <ul>
+                    <ul hidden>
                         <li>Детективы</li>
                         <li>Научная фантастика</li>
                         <li>Исторические</li>
@@ -41,16 +38,16 @@
             </ul>
         </li>
         <li>DVD
-            <ul>
+            <ul hidden>
                 <li>Зарубежные
-                    <ul>
+                    <ul hidden>
                         <li>Детективы</li>
                         <li>Научная фантастика</li>
                         <li>Исторические</li>
                     </ul>
                 </li>
                 <li>Отечественные
-                    <ul>
+                    <ul hidden>
                         <li>Детективы</li>
                         <li>Научная фантастика</li>
                         <li>Исторические</li>
@@ -61,18 +58,18 @@
     </ul>
 
     <script>
-        const listItems = document.querySelectorAll('li');
+        document.getElementById('menu').addEventListener('click', function(event) {
+            const target = event.target;
 
-        listItems.forEach(item => {
-            item.addEventListener('click', function(event) {
-                const hasChildren = this.querySelector('ul');
-                if (hasChildren) {
-                    this.classList.toggle('open');
-                } else {
-                    alert('Вы можете перейти по ссылке!');
-                }
-                event.stopPropagation(); 
-            });
+            
+            if (target.tagName !== 'LI') return;
+
+            const nestedUl = target.querySelector('ul');
+            if (nestedUl) {
+                nestedUl.hidden = !nestedUl.hidden;
+            } else {
+                alert('Вы можете перейти по ссылке!');
+            }
         });
     </script>
 </body>
